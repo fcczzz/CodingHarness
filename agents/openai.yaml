@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evidence-driven Review"
+  short_description: "Explain context, prove the bug, and verify the fix"
+  default_prompt: "Use $review-harness to explain this change's background, prove whether the problem exists, assess whether it needs solving, and verify the fix end to end."

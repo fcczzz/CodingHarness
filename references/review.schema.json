@@ -1,0 +1,239 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "target",
+    "executive_summary",
+    "verdict",
+    "confidence",
+    "problem_assessment",
+    "solution_assessment",
+    "findings",
+    "non_blocking_notes",
+    "validation",
+    "missing_evidence",
+    "suggested_review"
+  ],
+  "properties": {
+    "target": {"type": "string"},
+    "executive_summary": {"type": "string"},
+    "verdict": {
+      "type": "string",
+      "enum": ["approve", "comment", "request_changes"]
+    },
+    "confidence": {
+      "type": "string",
+      "enum": ["high", "medium", "low"]
+    },
+    "problem_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "background",
+        "normal_flow",
+        "claimed_problem",
+        "preconditions",
+        "root_cause",
+        "evidence",
+        "necessity"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "confirmed",
+            "plausible",
+            "not_demonstrated",
+            "not_applicable"
+          ]
+        },
+        "background": {"type": "string"},
+        "normal_flow": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "claimed_problem": {"type": "string"},
+        "preconditions": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "root_cause": {"type": "string"},
+        "evidence": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/evidence"}
+        },
+        "necessity": {"type": "string"}
+      }
+    },
+    "solution_assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "summary",
+        "covered_paths",
+        "uncovered_paths",
+        "invariants"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "correct",
+            "complete_for_claimed_scope",
+            "partial",
+            "incomplete",
+            "incorrect",
+            "not_applicable"
+          ]
+        },
+        "summary": {"type": "string"},
+        "covered_paths": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "uncovered_paths": {
+          "type": "array",
+          "items": {"type": "string"}
+        },
+        "invariants": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["name", "status", "evidence"],
+            "properties": {
+              "name": {"type": "string"},
+              "status": {
+                "type": "string",
+                "enum": ["holds", "violated", "uncertain"]
+              },
+              "evidence": {"type": "string"}
+            }
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "priority",
+          "blocking",
+          "confidence",
+          "title",
+          "path",
+          "line_start",
+          "line_end",
+          "introduced_by_change",
+          "evidence",
+          "failure_timeline",
+          "impact",
+          "recommendation",
+          "regression_test"
+        ],
+        "properties": {
+          "priority": {
+            "type": "string",
+            "enum": ["P0", "P1", "P2", "P3"]
+          },
+          "blocking": {"type": "boolean"},
+          "confidence": {
+            "type": "string",
+            "enum": ["high", "medium", "low"]
+          },
+          "title": {"type": "string"},
+          "path": {"type": "string"},
+          "line_start": {
+            "type": ["integer", "null"],
+            "minimum": 1
+          },
+          "line_end": {
+            "type": ["integer", "null"],
+            "minimum": 1
+          },
+          "introduced_by_change": {
+            "type": "string",
+            "enum": ["yes", "no", "amplified", "uncertain"]
+          },
+          "evidence": {"type": "string"},
+          "failure_timeline": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "impact": {"type": "string"},
+          "recommendation": {"type": "string"},
+          "regression_test": {"type": "string"}
+        }
+      }
+    },
+    "non_blocking_notes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["title", "evidence", "recommendation"],
+        "properties": {
+          "title": {"type": "string"},
+          "evidence": {"type": "string"},
+          "recommendation": {"type": "string"}
+        }
+      }
+    },
+    "validation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["command", "status", "result"],
+        "properties": {
+          "command": {"type": "string"},
+          "status": {
+            "type": "string",
+            "enum": ["passed", "failed", "not_run"]
+          },
+          "result": {"type": "string"}
+        }
+      }
+    },
+    "missing_evidence": {
+      "type": "array",
+      "items": {"type": "string"}
+    },
+    "suggested_review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["decision", "body"],
+      "properties": {
+        "decision": {
+          "type": "string",
+          "enum": ["approve", "comment", "request_changes"]
+        },
+        "body": {"type": "string"}
+      }
+    }
+  },
+  "$defs": {
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "line_start", "line_end", "observation"],
+      "properties": {
+        "path": {"type": "string"},
+        "line_start": {
+          "type": ["integer", "null"],
+          "minimum": 1
+        },
+        "line_end": {
+          "type": ["integer", "null"],
+          "minimum": 1
+        },
+        "observation": {"type": "string"}
+      }
+    }
+  }
+}
