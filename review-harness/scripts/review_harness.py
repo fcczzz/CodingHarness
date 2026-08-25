@@ -141,6 +141,27 @@ def compact_pr_context(raw: dict[str, Any]) -> dict[str, Any]:
         for item in raw.get("reviews", [])
         if isinstance(item, dict)
     ][-100:]
+    result["statusCheckRollup"] = [
+        {
+            key: item.get(key)
+            for key in (
+                "__typename",
+                "name",
+                "context",
+                "workflowName",
+                "status",
+                "conclusion",
+                "state",
+                "detailsUrl",
+                "targetUrl",
+                "startedAt",
+                "completedAt",
+            )
+            if item.get(key) is not None
+        }
+        for item in raw.get("statusCheckRollup", [])
+        if isinstance(item, dict)
+    ][:200]
     return result
 
 
@@ -163,6 +184,7 @@ def collect_pr_context(
             "comments",
             "reviews",
             "files",
+            "statusCheckRollup",
         )
     )
     result = _run([gh_bin, "pr", "view", pr, "--json", fields], cwd=repo)

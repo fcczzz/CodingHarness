@@ -65,6 +65,16 @@ deployment checks should therefore follow plausible changes to hot paths,
 scale, state, or version boundaries. They are not generic demands for a
 benchmark or rollout plan on every patch.
 
+### CI reuse and proportional local validation
+
+CI and local validation answer the same question only when they run equivalent
+commands against the same immutable head and relevant configuration. Reusing
+green matching-head CI avoids spending review time on a duplicate full build.
+Local validation should instead buy new evidence: a focused regression path, a
+counterexample, a missing platform or feature variant, or investigation of a
+failed or stale check. Passing CI remains bounded evidence; it cannot establish
+semantic correctness for behavior the jobs do not exercise.
+
 ## Patterns that shaped the harness
 
 ### Configuration propagation (#3077)

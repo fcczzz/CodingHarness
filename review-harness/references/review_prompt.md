@@ -29,6 +29,8 @@ matching the supplied schema. Do not wrap the JSON in Markdown.
 - Order actionable findings P0 through P3.
 - Include a concrete failure path, impact, code evidence, proportionate fix,
   and regression test for every finding.
+- Reuse successful CI reported for the reviewed head instead of duplicating an
+  equivalent full local build; run local validation only when it adds evidence.
 - Use `request_changes` only for demonstrated blocking findings.
 - Use `comment` for uncertain questions, partial but mergeable fixes, or
   meaningful non-blocking follow-ups.

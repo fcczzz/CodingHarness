@@ -33,6 +33,12 @@ could have changed. If the reviewed head or working-tree content changes, do
 not silently carry the previous conclusion forward: rerun every gate whose
 evidence may now be stale, or report that the new snapshot was not reviewed.
 
+Treat CI results as snapshot-bound evidence. Reuse a successful build or test
+result only when it belongs to the exact reviewed head and its configuration is
+relevant to the changed path. A result from an older head, a different local
+tree, or an unrelated platform or feature configuration does not validate the
+reviewed snapshot.
+
 ## 1. Reconstruct the background and normal flow
 
 Before judging the report or patch, explain enough context for the user to
@@ -166,8 +172,20 @@ Check whether tests traverse the real production entry point and the exact
 broken variant. A helper-only test is insufficient when the bug lives in
 caller propagation. A green benchmark is not a fault-injection test.
 
-Run focused tests when practical. Report only commands actually run. Never
-claim CI status without evidence in the supplied context.
+Before compiling locally, inspect available CI evidence for the exact reviewed
+head. When the relevant required CI jobs succeeded, use them as evidence for
+the equivalent full build and test suite; do not rerun that work locally merely
+to duplicate a green result. CI passing is evidence about the commands it ran,
+not proof that the patch is semantically correct or that an untested failure
+path is safe.
+
+Run focused local tests when practical and when they add evidence: for example,
+to exercise the claimed regression path, challenge a suspected counterexample,
+cover a configuration or platform omitted by CI, or investigate a failed,
+pending, missing, or stale check. Run a full local build only when CI does not
+provide equivalent current-snapshot evidence or the review identifies a
+build-wide integration risk. Report only commands actually run. Never claim CI
+status without evidence in the supplied context.
 
 For correctness-sensitive changes, when practical derive at least one expected
 property from an independent contract, caller requirement, RFC, acceptance

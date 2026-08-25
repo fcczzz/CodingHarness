@@ -59,6 +59,9 @@ in the harness.
 - Distinguish a blocking defect from a pre-existing adjacent risk and a
   mergeable follow-up.
 - Require code evidence and a regression path for every actionable finding.
+- Prefer successful CI from the exact reviewed head over duplicating the same
+  full build or test suite locally. Run local focused validation only when it
+  addresses a concrete failure path, missing CI coverage, or stale CI evidence.
 - Report tests and commands only when actually run.
 - Treat the interactive output order as a hard acceptance criterion. Performing
   the background analysis internally is not sufficient: the visible response
