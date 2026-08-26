@@ -68,7 +68,13 @@ in the harness.
   must present the explanatory stages before findings or a verdict.
 
 Do not modify the code or post/approve a GitHub review unless the user
-explicitly asks for that action. For an uncertain concern, ask the author to
+unambiguously authorizes that exact external action. Treat requests such as
+"write a comment", "I want to comment", "comment on this", or “发表一下
+comment” as requests for a draft unless the same message clearly identifies
+the destination and either supplies the exact final text or confirms a shown
+preview for immediate publication. When any doubt remains, provide a suggested
+comment and ask for confirmation; do not infer publication authority from the
+surrounding review conversation. For an uncertain concern, ask the author to
 confirm the suspected ordering or guard instead of asserting a bug.
 
 Default to an explanatory review. Unless the user explicitly requests a quick

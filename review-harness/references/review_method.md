@@ -17,6 +17,21 @@
   or missing tests as code defects by themselves. Connect them to a concrete
   untested failure path or keep them non-blocking.
 
+## External review action gate
+
+- Drafting is the default. A request to "write", "give", "make", "leave", or
+  “发表一下” a comment or review is not, by itself, authorization to publish it.
+- Before the first external write, require an unambiguous destination and exact
+  final content. Either the user must provide both while explicitly directing
+  immediate publication, or Codex must show the exact preview and receive
+  confirmation to publish it.
+- If wording can reasonably mean “give me text I can use,” return only the
+  draft. Do not infer posting authority from prior review work, available
+  credentials, or conversational momentum.
+- Authorization to publish one comment does not authorize an approval,
+  request-changes review, follow-up reply, edit, deletion, or any other external
+  mutation. Obtain separate authorization where required.
+
 ## 0. Fix the reviewed snapshot
 
 Before substantive analysis, identify the exact review scope. When applicable,
