@@ -437,10 +437,34 @@ def render_markdown(report: dict[str, Any]) -> str:
             ]
         ),
         "",
-        "## Findings",
-        "",
     ]
 
+    coverage = report.get("review_coverage")
+    if coverage is not None:
+        lines.extend(["## Review coverage", ""])
+        if not coverage:
+            lines.extend(["No review coverage recorded.", ""])
+        for item in coverage:
+            lines.extend(
+                [
+                    f"### {item.get('scope', '')}",
+                    "",
+                    f"**Review status:** `{item.get('status', 'not_reviewed')}`",
+                    "",
+                    "**Paths traced**",
+                    "",
+                    _bullets(item.get("reviewed_paths") or []),
+                    "",
+                    f"**Validation evidence:** {item.get('validation', '')}",
+                    "",
+                    "**Coverage limits**",
+                    "",
+                    _bullets(item.get("limitations") or []),
+                    "",
+                ]
+            )
+
+    lines.extend(["## Findings", ""])
     findings = report.get("findings") or []
     if not findings:
         lines.extend(["No actionable findings.", ""])

@@ -26,6 +26,12 @@ matching the supplied schema. Do not wrap the JSON in Markdown.
 
 - Populate `problem_assessment.background` and `normal_flow` before judging the
   problem, solution, or verdict.
+- Populate `review_coverage` from the changed-file inventory, grouping related
+  files by module or behavioral boundary. Include partially reviewed and
+  unreviewed groups, the actual paths traced, validation evidence (or its
+  absence), and reasons for remaining gaps. Reflect material gaps in
+  `missing_evidence` and the verdict. This records the reviewer's investigation;
+  `solution_assessment.covered_paths` describes behavior addressed by the patch.
 - Order actionable findings P0 through P3.
 - Include a concrete failure path, impact, code evidence, proportionate fix,
   and regression test for every finding.

@@ -9,6 +9,7 @@
     "confidence",
     "problem_assessment",
     "solution_assessment",
+    "review_coverage",
     "findings",
     "non_blocking_notes",
     "validation",
@@ -112,6 +113,30 @@
               },
               "evidence": {"type": "string"}
             }
+          }
+        }
+      }
+    },
+    "review_coverage": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["scope", "status", "reviewed_paths", "validation", "limitations"],
+        "properties": {
+          "scope": {"type": "string"},
+          "status": {
+            "type": "string",
+            "enum": ["reviewed", "partial", "not_reviewed"]
+          },
+          "reviewed_paths": {
+            "type": "array",
+            "items": {"type": "string"}
+          },
+          "validation": {"type": "string"},
+          "limitations": {
+            "type": "array",
+            "items": {"type": "string"}
           }
         }
       }

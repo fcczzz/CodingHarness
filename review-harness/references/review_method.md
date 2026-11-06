@@ -54,6 +54,30 @@ relevant to the changed path. A result from an older head, a different local
 tree, or an unrelated platform or feature configuration does not validate the
 reviewed snapshot.
 
+## Track review coverage
+
+Inventory the changed files within the requested scope and group them by module
+or behavioral boundary. Keep a compact coverage record as the review proceeds:
+scope (including file paths), review status, execution paths and variants traced,
+validation evidence, and remaining gaps with reasons. Group related or mechanical
+changes rather than creating a row for every hunk; small reviews need only a
+brief record. Use the affected behavior and risk to prioritize deeper work.
+
+Use `reviewed` when the group's changed behavior and material variants have been
+traced, `partial` when some relevant paths remain unchecked, and `not_reviewed`
+when only metadata or a summary was read, or the group was not inspected.
+For behavioral changes, reading the diff alone does not establish full coverage.
+Record static analysis and executed or inspected validation separately; a
+`reviewed` status does not imply tests ran or every input was exercised.
+
+Before the verdict, reconcile the record against the changed-file inventory so
+no module silently disappears. Name material unreviewed paths, why they remain,
+and how they limit the judgment; a coverage gap alone is not a code defect.
+On re-review, update affected entries and reuse unaffected evidence only while
+it remains applicable to the new snapshot. In chat, keep the detailed record
+internal unless requested, and surface material coverage limits with the verdict.
+Standalone reports include the record as `review_coverage`.
+
 ## 1. Reconstruct the background and normal flow
 
 Before judging the report or patch, explain enough context for the user to
